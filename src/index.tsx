@@ -13,6 +13,10 @@ const theme = createMuiTheme({
       // Purple and green play nicely together.
       main: '#037ef3',
     },
+    secondary: {
+      // Purple and green play nicely together.
+      main: '#30c39e',
+    },
   },
 });
 ReactDOM.render(
