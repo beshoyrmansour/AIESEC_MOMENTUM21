@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { lazy, Suspense } from 'react'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
+import { CircularProgress } from '@material-ui/core';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Props {
+
 }
 
-export default App;
+const App = (props: Props) => {
+  const Login = lazy(() => import('./Pages/Login'));
+  const Registeration = lazy(() => import('./Pages/Registeration'));
+  const Summary = lazy(() => import('./Pages/Summary'));
+  const ContactUs = lazy(() => import('./Pages/ContactUs'));
+  const NotFound = lazy(() => import('./Pages/NotFound'));
+  return (
+    <>
+      <CssBaseline />
+      <Suspense
+        fallback={
+          <div>
+            <CircularProgress />
+          </div>
+        }
+      >
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path={['/', '/login', '/login']}
+              component={Login}
+            />
+            <Route
+              exact
+              path={'/registeration'}
+              component={Registeration}
+            />
+            <Route
+              exact
+              path={'/summary'}
+              component={Summary}
+            />
+            <Route exact path={'/contact-us'} component={ContactUs} />
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </Suspense>
+
+    </>)
+}
+
+export default App
