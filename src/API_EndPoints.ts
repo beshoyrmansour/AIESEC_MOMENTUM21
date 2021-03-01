@@ -10,7 +10,7 @@ export const END_POINTS = {
     },
     LC_LOOK_UP: `${BASE_URL}/LcLookUp/{code}`,
     MERCHANDISE: {
-        MERCHANDISE: `${BASE_URL}/Merchandise`,
+        MERCHANDISE_LIST: `${BASE_URL}/Merchandise`,
         MERCHANDISE_ITEM: `${BASE_URL}​/Merchandise​/{Id}`,
         MERCHANDISE_MANY: `${BASE_URL}​/many`,
     }

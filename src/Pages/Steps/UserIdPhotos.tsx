@@ -1,6 +1,6 @@
-import { Avatar, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Avatar, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import ImageUploader from "react-images-upload";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -53,7 +53,6 @@ const UserIdPhotos = (props: Props) => {
     });
 
     const onDropPersonalImage = (files: any) => {
-        console.log('onDropPersonalImage files', files);
         toBase64(files[0]).then((v: any) => {
             dispatch({
                 type: ACTION_TYPES.USER.USER_INFO.SET,
@@ -65,7 +64,6 @@ const UserIdPhotos = (props: Props) => {
         })
     }
     const onDropNationalIdFrontImage = (files: any) => {
-        console.log('onDropNationalIdFrontImage files', files[0].getAsBinary());
         toBase64(files[0]).then((v: any) => {
             dispatch({
                 type: ACTION_TYPES.USER.USER_INFO.SET,
@@ -77,7 +75,6 @@ const UserIdPhotos = (props: Props) => {
         })
     }
     const onDropNationalIdBackImage = (files: any) => {
-        console.log('onDropNationalIdBackImage files', files);
         toBase64(files[0]).then((v: any) => {
             dispatch({
                 type: ACTION_TYPES.USER.USER_INFO.SET,
@@ -89,7 +86,6 @@ const UserIdPhotos = (props: Props) => {
         })
     }
     const onDropPassportImage = (files: any) => {
-        console.log('onDropPassportImage files', files);
         toBase64(files[0]).then((v: any) => {
             dispatch({
                 type: ACTION_TYPES.USER.USER_INFO.SET,
