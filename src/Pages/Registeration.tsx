@@ -67,7 +67,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4),
         padding: theme.spacing(2),
-
+        
+    },
+    navButton:{
+        marginBottom: theme.spacing(4),
     }
 }));
 
@@ -162,6 +165,7 @@ export default function Registeration() {
                                 direction="row"
                                 justify="space-around"
                                 alignItems="center"
+                                className={classes.navButton}
                             >
                                 <Fab color="default" onClick={handleBack}>
                                     <ChevronLeftIcon />

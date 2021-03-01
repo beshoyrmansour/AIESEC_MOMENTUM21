@@ -52,6 +52,15 @@ export type IUserInfo = {
     email: string
     function: string
     role: string
+    passportImage: string
+    nationalIdFrontImage: string
+    nationalIdBackImage: string
+    personalImage: string
 }
 
 export type DispatchType = (args: GeneralAction) => GeneralAction
+
+export const IDOptions = {
+    nationalId: 'nationalId',
+    passport: 'passport'
+} 

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://momentum21registration.uaenorth.azurecontainer.io';
+export const BASE_URL = 'http://momentum21registration.uaenorth.azurecontainer.io';
 
 export const END_POINTS = {
     ENUMS: {

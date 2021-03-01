@@ -13,6 +13,10 @@ const initialState: UserReducer = {
         email: '',
         function: '',
         role: '',
+        passportImage: '',
+        nationalIdFrontImage: '',
+        nationalIdBackImage: '',
+        personalImage: '',
     },
     checkingPassCodeErrorMSG: ''
 
@@ -49,6 +53,8 @@ export default (state = initialState, action: GeneralAction) => {
             };
             break;
         case ACTION_TYPES.USER.USER_INFO.SET:
+            console.log({ payload: { ...action.payload } });
+
             newState = {
                 ...state,
                 userInfo: { ...action.payload }

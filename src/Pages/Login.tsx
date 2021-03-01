@@ -134,10 +134,7 @@ const Login = (props: Props) => {
     }, [isCheckingPassCode, readCancelationTrems, readRoundTrems, passCode])
 
     useEffect(() => {
-        if ('id' in localCommittee) history.push('/registeration')
-        return () => {
-
-        }
+        if ('localCommitteeId' in localCommittee && localCommittee.localCommitteeId !== null) history.push('/registeration')
     }, [localCommittee])
     return (
         <React.Fragment>
