@@ -22,10 +22,16 @@ export type UserReducer = {
     isCheckingPassCode: boolean
     userName: string
     localCommittee: ILocalCommittee | {}
+    userInfo: userInfo | {}
 }
 
 export type GeneralAction = {
     type: string
+    payload?: any
+}
+
+export type userInfo = {
+    type?: string
     payload?: any
 }
 

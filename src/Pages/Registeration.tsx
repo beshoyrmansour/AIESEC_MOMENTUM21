@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import CheckIcon from '@material-ui/icons/Check';
 
 import human from '../assets/human.png';
 import UserIdPhotos from './Steps/UserIdPhotos';
@@ -18,7 +19,11 @@ import MerchandiseSelector from './Steps/MerchandiseSelector';
 import UserInfoSteps from './Steps/UserInfoSteps';
 import NotFound from './NotFound';
 import Summary from './Summary';
+import { handleUserRegisteration } from '../redux/actions/userActions';
 import { Container, Fab, Grid, Paper } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { userInfo } from 'os';
+import { AppState } from '../redux/store';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,11 +88,20 @@ const getStepContent = (stepIndex: number) => {
 
 export default function Registeration() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const userInfo = useSelector(
+        (state: AppState) => state.user.userInfo,
+    ) as {};
+
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        console.log('HERE', activeStep);
+
+        activeStep <= steps.length - 2 ?
+            setActiveStep((prevActiveStep) => prevActiveStep + 1) :
+            dispatch(handleUserRegisteration(userInfo));
     };
 
     const handleBack = () => {
@@ -144,8 +158,11 @@ export default function Registeration() {
                                 <Fab color="default" onClick={handleBack}>
                                     <ChevronLeftIcon />
                                 </Fab>
-                                <Fab color="primary" onClick={handleNext}>
-                                    <ChevronRightIcon />
+                                <Fab color={activeStep <= steps.length - 2 ? "primary" : "secondary"} onClick={handleNext}>
+                                    {activeStep <= steps.length - 2 ?
+                                        <ChevronRightIcon /> :
+                                        <CheckIcon />
+                                    }
                                 </Fab>
                             </Grid>
                         </Grid>

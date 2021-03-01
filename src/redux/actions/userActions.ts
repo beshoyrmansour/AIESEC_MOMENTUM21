@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { GeneralAction } from '../../types';
+import { GeneralAction, userInfo } from '../../types';
 import ACTION_TYPES from '../actionTypes';
 
 export const checkPassCode = (passCode: string) => (
@@ -11,3 +11,14 @@ export const checkPassCode = (passCode: string) => (
         type: ACTION_TYPES.CHECK_PASS_CODE.REQUEST,
     })
 };
+export const handleUserRegisteration = (userInfo: userInfo) => (
+    dispatch: Dispatch<GeneralAction>,
+) => {
+    console.log("handleUserRegisteration");
+    
+    dispatch({
+        type: ACTION_TYPES.USER.REQUEST,
+    })
+
+};
+

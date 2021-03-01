@@ -4,7 +4,9 @@ import { GeneralAction, UserReducer } from '../../types';
 const initialState: UserReducer = {
     isCheckingPassCode: false,
     userName: '',
-    localCommittee: {}
+    localCommittee: {},
+    userInfo: {}
+
 };
 
 export default (state = initialState, action: GeneralAction) => {
