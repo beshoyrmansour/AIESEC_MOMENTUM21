@@ -23,7 +23,8 @@ import { handleUserRegisteration } from '../redux/actions/userActions';
 import { Container, Fab, Grid, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../redux/store';
-import { IUserInfo } from '../types';
+import { IUserInfo, IUserMerchandise } from '../types';
+import { handleUserMerchandise } from '../redux/actions/merchandiseActions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -93,6 +94,10 @@ export default function Registeration() {
     const userInfo = useSelector(
         (state: AppState) => state.user.userInfo,
     ) as IUserInfo;
+    const userId = useSelector((state: AppState) => state.user.id);
+    const userMerchandise = useSelector(
+        (state: AppState) => state.merchandise.userMerchandise,
+    ) as IUserMerchandise;
 
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -100,7 +105,9 @@ export default function Registeration() {
     const handleNext = () => {
         console.log('HERE', activeStep);
 
-        if (activeStep <= steps.length - 2)
+        if (activeStep === 1)
+            dispatch(handleUserMerchandise(userId, userMerchandise));
+        if (activeStep >= steps.length - 1)
             dispatch(handleUserRegisteration(userInfo));
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };

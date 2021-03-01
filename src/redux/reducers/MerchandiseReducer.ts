@@ -4,15 +4,18 @@ import { GeneralAction, MerchandiseReducer } from '../../types';
 
 const initialState: MerchandiseReducer = {
   isLoadingMerchandiseList: false,
-  MerchandiseList: []
+  MerchandiseList: [],
+  userMerchandise: [],
 };
 
 export default (state = initialState, action: GeneralAction) => {
   let newState = state;
 
-  // ---------- GET_AVAILABLE_SERVICES_LIST ----------
 
   switch (action.type) {
+
+    // ---------- MERCHANDISE_LIST ----------
+
     case ACTION_TYPES.MERCHANDISE_LIST.REQUEST:
       newState = {
         ...state,
@@ -20,11 +23,53 @@ export default (state = initialState, action: GeneralAction) => {
         MerchandiseList: [],
       };
       break;
+    case ACTION_TYPES.MERCHANDISE_LIST.SUCCESS:
+      newState = {
+        ...state,
+        isLoadingMerchandiseList: false,
+        MerchandiseList: [...action.payload],
+      };
+      break;
+    case ACTION_TYPES.MERCHANDISE_LIST.FALIURE:
+      newState = {
+        ...state,
+        isLoadingMerchandiseList: false,
+        MerchandiseList: [],
+      };
+      break;
+
+    // ---------- USER_MERCHANDISE ----------
+
+    case ACTION_TYPES.USER_MERCHANDISE.REQUEST:
+      newState = {
+        ...state,
+        isLoadingMerchandiseList: true,
+        userMerchandise: [],
+      };
+      break;
+    case ACTION_TYPES.USER_MERCHANDISE.SUCCESS:
+      newState = {
+        ...state,
+        isLoadingMerchandiseList: false,
+        userMerchandise: [...action.payload],
+      };
+      break;
+    case ACTION_TYPES.USER_MERCHANDISE.FALIURE:
+      newState = {
+        ...state,
+        isLoadingMerchandiseList: false,
+        userMerchandise: [],
+      };
+      break;
+
+
     default:
       break;
   }
   return newState;
 };
+
+
 // [
 //   {
 //     "id": "6fee4d7a-d0b4-4c60-a07a-e65ba707d36a",

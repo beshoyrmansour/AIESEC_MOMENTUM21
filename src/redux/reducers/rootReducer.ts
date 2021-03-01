@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import userReduser from './UserReduser';
-import configsReducer from './configsReducer';
+import UserReduser from './UserReduser';
+
+import ConfigsReducer from './ConfigsReducer';
 import MerchandiseReducer from './MerchandiseReducer';
 
 export default combineReducers({
-    user: userReduser,
-    configs: configsReducer,
+    user: UserReduser,
+    configs: ConfigsReducer,
     merchandise: MerchandiseReducer,
 
 

@@ -5,6 +5,7 @@ const initialState: UserReducer = {
     isCheckingPassCode: false,
     userName: '',
     localCommittee: {},
+    id: '',
     userInfo: {
         fullName: '',
         gender: '',
@@ -43,15 +44,7 @@ export default (state = initialState, action: GeneralAction) => {
             newState = {
                 ...state,
                 isCheckingPassCode: false,
-                // localCommittee: {},
-                localCommittee: {
-                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                    "registrationNumber": 0,
-                    "creationDateTime": "2021-03-01T04:30:23.033Z",
-                    "localCommitteeId": 0,
-                    "name": "string",
-                    "code": "string"
-                },
+                localCommittee: {},
                 checkingPassCodeErrorMSG: 'Invalid LC code, please try again!'
             };
             break;

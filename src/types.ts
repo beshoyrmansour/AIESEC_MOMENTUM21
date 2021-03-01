@@ -8,9 +8,7 @@ export interface IMerchandise {
 }
 
 export interface ILocalCommittee {
-    id: string
     name?: string
-    code?: string
     localCommitteeId?: number
 }
 export interface IListItem {
@@ -21,6 +19,7 @@ export interface IListItem {
 export type MerchandiseReducer = {
     isLoadingMerchandiseList: boolean
     MerchandiseList: IMerchandise[] | []
+    userMerchandise: IUserMerchandise[] | []
 }
 export type ConfigsReducer = {
     isLoadingAIESIC_Functions: boolean
@@ -31,6 +30,7 @@ export type ConfigsReducer = {
 export type UserReducer = {
     isCheckingPassCode: boolean
     userName: string
+    id: string
     checkingPassCodeErrorMSG: string
     localCommittee: ILocalCommittee | {}
     userInfo: IUserInfo | {}
@@ -39,6 +39,10 @@ export type UserReducer = {
 export type GeneralAction = {
     type: string
     payload?: any
+}
+export type IUserMerchandise = {
+    id?: number
+    amount?: number
 }
 
 export type IUserInfo = {
