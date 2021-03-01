@@ -22,8 +22,8 @@ import Summary from './Summary';
 import { handleUserRegisteration } from '../redux/actions/userActions';
 import { Container, Fab, Grid, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfo } from 'os';
 import { AppState } from '../redux/store';
+import { IUserInfo } from '../types';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
     },
     contentWrapper: {
         width: '100%',
-        margin: theme.spacing(4),
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
         padding: theme.spacing(2),
 
     }
@@ -91,7 +92,7 @@ export default function Registeration() {
     const dispatch = useDispatch();
     const userInfo = useSelector(
         (state: AppState) => state.user.userInfo,
-    ) as {};
+    ) as IUserInfo;
 
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -99,9 +100,9 @@ export default function Registeration() {
     const handleNext = () => {
         console.log('HERE', activeStep);
 
-        activeStep <= steps.length - 2 ?
-            setActiveStep((prevActiveStep) => prevActiveStep + 1) :
+        if (activeStep <= steps.length - 2)
             dispatch(handleUserRegisteration(userInfo));
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleBack = () => {

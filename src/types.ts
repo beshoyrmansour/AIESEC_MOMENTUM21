@@ -13,16 +13,27 @@ export interface ILocalCommittee {
     code?: string
     localCommitteeId?: number
 }
+export interface IListItem {
+    id: number
+    label: string
+}
 
 export type MerchandiseReducer = {
     isLoadingMerchandiseList: boolean
     MerchandiseList: IMerchandise[] | []
 }
+export type ConfigsReducer = {
+    isLoadingAIESIC_Functions: boolean
+    AIESIC_Functions: IListItem[] | []
+    isLoadingAIESIC_ROLES: boolean
+    AIESIC_ROLES: IListItem[] | []
+}
 export type UserReducer = {
     isCheckingPassCode: boolean
     userName: string
+    checkingPassCodeErrorMSG: string
     localCommittee: ILocalCommittee | {}
-    userInfo: userInfo | {}
+    userInfo: IUserInfo | {}
 }
 
 export type GeneralAction = {
@@ -30,9 +41,13 @@ export type GeneralAction = {
     payload?: any
 }
 
-export type userInfo = {
-    type?: string
-    payload?: any
+export type IUserInfo = {
+    fullName: string
+    gender: string
+    phone: string
+    email: string
+    function: string
+    role: string
 }
 
 export type DispatchType = (args: GeneralAction) => GeneralAction

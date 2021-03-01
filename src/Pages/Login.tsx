@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import aiesec_logo from '../assets/aiesec_logo.svg';
-import welcome from '../assets/welcome.svg';
-import logo from '../assets/logo.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -22,12 +21,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../redux/store';
 import { checkPassCode } from '../redux/actions/userActions';
+import aiesec_logo from '../assets/aiesec_logo.svg';
+import welcome from '../assets/welcome.svg';
+import { AppState } from '../redux/store';
+import logo from '../assets/logo.png';
+import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    login_root: {
         '&': {
             height: '100vh',
             display: 'flex',
@@ -36,25 +38,22 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column'
         },
         '& > *': {
-            margin: theme.spacing(0),
+            // margin: theme.spacing(0),
             textAlign: 'center',
         },
     },
+
     extendedIcon: {
         // marginRight: theme.spacing(1),
     },
     fab: {
-        // position: 'absolute',
-        // bottom: theme.spacing(4),
         marginTop: theme.spacing(4)
-        // right: 'calc(50% - 60px)',
     },
     textField: {
         marginTop: theme.spacing(4),
         '& > input': {
             textAlign: 'center',
         }
-        // width: '100%'
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -68,12 +67,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
     fabProgress: {
-
         position: 'absolute',
-        // top: 6,
         bottom: -1,
-
-        // left: 6,
         zIndex: 1,
     },
     acknowledge: {
@@ -91,14 +86,15 @@ interface Props {
 const Login = (props: Props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [canCheckPassCode, setCanCheckPassCode] = useState(true);
     const [readCancelationTrems, setReadCancelationTrems] = useState(false);
     const [readRoundTrems, setReadRoundTrems] = useState(false);
     const [passCode, setPassCode] = useState('');
-    const isCheckingPassCode = useSelector(
-        (state: AppState) => state.user.isCheckingPassCode,
-    );
+    const isCheckingPassCode = useSelector((state: AppState) => state.user.isCheckingPassCode,);
+    const checkingPassCodeErrorMSG = useSelector((state: AppState) => state.user.checkingPassCodeErrorMSG,);
+    const localCommittee = useSelector((state: AppState) => state.user.localCommittee,);
     const handlePassCodeChange = (e: any) => {
         const { value } = e.target;
         setPassCode(value);
@@ -136,10 +132,17 @@ const Login = (props: Props) => {
         return () => {
         }
     }, [isCheckingPassCode, readCancelationTrems, readRoundTrems, passCode])
+
+    useEffect(() => {
+        if ('id' in localCommittee) history.push('/registeration')
+        return () => {
+
+        }
+    }, [localCommittee])
     return (
         <React.Fragment>
-            <Container maxWidth="sm" className={classes.root} fixed>
-                <img src={aiesec_logo} className="mom_logo" alt="logo" />
+            <Container maxWidth="sm" className={classes.login_root} fixed>
+                <img src={aiesec_logo} className="aiesec_logo" alt="logo" />
                 <img src={logo} className="mom_logo" alt="logo" />
                 <img src={welcome} className="welcome_text" alt="logo" />
                 <Accordion square className='what_accordion'>
@@ -162,18 +165,20 @@ const Login = (props: Props) => {
                     justify="center"
                     alignItems="center"
                     spacing={0}>
-                    {/* <FormControl fullWidth variant="outlined">
+                    <FormControl fullWidth variant="outlined" error={checkingPassCodeErrorMSG.length > 0}>
                         <InputLabel htmlFor="user_passcode">Enter Your PassCode Here</InputLabel>
-                        <OutlinedInput 
+                        <OutlinedInput
                             id="user_passcode"
                             // className={classes.textField}
                             label="Enter Your PassCode Here"
                             onChange={(e) => handlePassCodeChange(e)}
                             value={passCode}
-                            disabled={isCheckingPassCode}       
+                            disabled={isCheckingPassCode}
                         />
-                    </FormControl> */}
-                    <TextField
+                        <FormHelperText id="component-error-text">{checkingPassCodeErrorMSG}</FormHelperText>
+
+                    </FormControl>
+                    {/* <TextField
                         id="user_passcode"
                         // className={classes.textField}
                         label="Enter Your PassCode Here"
@@ -182,7 +187,7 @@ const Login = (props: Props) => {
                         disabled={isCheckingPassCode}
                         variant="outlined"
                         fullWidth
-                    />
+                    /> */}
                     <Accordion className={classes.acknowledge}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}

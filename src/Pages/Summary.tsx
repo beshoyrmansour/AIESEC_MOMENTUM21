@@ -7,6 +7,7 @@ interface Props {
 const Summary = (props: Props) => {
     return (
         <div>
+            <h1>Summary</h1>
             Cancelation policy:
             Merchandise pre-orders are excluded from the policy, No Refund for the pre-orders
 
