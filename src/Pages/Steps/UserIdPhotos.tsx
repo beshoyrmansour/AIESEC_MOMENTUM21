@@ -107,6 +107,7 @@ const UserIdPhotos = (props: Props) => {
             {/* <Avatar alt="Remy Sharp" src="">{userInfo?.fullName.charAt(0)}</Avatar> */}
             {/* <input type="file" onChange={personalImageFileChangedHandler} />
             <Button onClick={handleUploadPersonalImage}>Upload your Photo</Button> */}
+            <Typography variant="h4" color="textSecondary" component="h4" gutterBottom >Alomst done, Upload Some Images</Typography>
 
             <FormLabel component="legend">Personal Photos</FormLabel>
             <ImageUploader

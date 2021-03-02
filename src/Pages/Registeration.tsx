@@ -67,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4),
         padding: theme.spacing(2),
-        
+
     },
-    navButton:{
+    navButton: {
         marginBottom: theme.spacing(4),
     }
 }));
@@ -98,9 +98,6 @@ export default function Registeration() {
         (state: AppState) => state.user.userInfo,
     ) as IUserInfo;
     const userId = useSelector((state: AppState) => state.user.id);
-    const userMerchandise = useSelector(
-        (state: AppState) => state.merchandise.userMerchandise,
-    ) as IUserMerchandise;
 
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
@@ -108,8 +105,8 @@ export default function Registeration() {
     const handleNext = () => {
         console.log('HERE', activeStep);
 
-        if (activeStep === 1)
-            dispatch(handleUserMerchandise(userId, userMerchandise));
+        // if (activeStep === 1)
+        //     dispatch(handleUserMerchandise(userId, userMerchandise));
         if (activeStep >= steps.length - 1)
             dispatch(handleUserRegisteration(userInfo));
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -2,9 +2,10 @@ export interface IMerchandise {
     id: number
     creationDateTime: string
     imageBase64: string
-    price: string
-    type: string
+    price: number
+    type: number
     merchTypeName: string
+    size?: string
 }
 
 export interface ILocalCommittee {
@@ -41,8 +42,11 @@ export type GeneralAction = {
     payload?: any
 }
 export type IUserMerchandise = {
-    id?: number
-    amount?: number
+    type: number
+    merchTypeName: string
+    quantity: number
+    size?: string
+    price?: number
 }
 
 export type IUserInfo = {

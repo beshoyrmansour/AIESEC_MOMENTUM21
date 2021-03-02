@@ -1,4 +1,4 @@
-import { makeStyles, MenuItem, TextField } from '@material-ui/core'
+import { makeStyles, MenuItem, TextField, Typography } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getFunctions, getRoles } from '../../redux/actions/configActions';
@@ -72,6 +72,8 @@ const UserInfoSteps = (props: Props) => {
 
     return (
         <form className={classes.root}>
+            <Typography variant="h4" color="textSecondary" component="h4" gutterBottom >Welcome, Please Fill the following form</Typography>
+
             <div>
                 <TextField
                     fullWidth

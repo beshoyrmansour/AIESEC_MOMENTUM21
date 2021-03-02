@@ -19,7 +19,7 @@ const App = (props: Props) => {
       <CssBaseline />
       <Suspense
         fallback={
-          <div>
+          <div className="loading-wrapper">
             <CircularProgress />
           </div>
         }

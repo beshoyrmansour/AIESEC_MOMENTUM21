@@ -61,6 +61,12 @@ export default (state = initialState, action: GeneralAction) => {
         userMerchandise: [],
       };
       break;
+    case ACTION_TYPES.USER_MERCHANDISE.SET:
+      newState = {
+        ...state,
+        userMerchandise: [...action.payload],
+      };
+      break;
 
 
     default:
