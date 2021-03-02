@@ -46,7 +46,7 @@ export type IUserMerchandise = {
     merchTypeName: string
     quantity: number
     size?: string
-    price?: number
+    price: number
 }
 
 export type IUserInfo = {

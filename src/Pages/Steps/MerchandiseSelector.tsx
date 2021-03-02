@@ -15,10 +15,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Grid from '@material-ui/core/Grid';
-import { CircularProgress, Fab } from '@material-ui/core';
+import { CircularProgress, Fab, Paper } from '@material-ui/core';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Modal from '@material-ui/core/Modal';
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 interface Props {
 
 }
@@ -64,11 +64,23 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         width: '100%',
         maxWidth: '550px',
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
+        // backgroundColor: theme.palette.background.paper,
+        // border: '2px solid #000',
+        // boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
+    noItems: {
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
+    },
+    basketItem: {
+        marginTop: theme.spacing(2),
+    },
+    itemTitle: {
+        flexGrow: 1
+    }
 }));
 
 
@@ -131,6 +143,13 @@ const MerchandiseSelector = (props: Props) => {
         }
 
     };
+    const removeFromBasket = (merch: IUserMerchandise) => {
+
+        dispatch({
+            type: ACTION_TYPES.USER_MERCHANDISE.SET,
+            payload: [...userMerchandise.filter(item => item.type !== merch.type)]
+        })
+    };
     const getMerchCountInBasket = (merch: IMerchandise) => {
         let count: number = 0;
         const selectedMerchIndex = userMerchandise.findIndex(item => item.type === merch.type)
@@ -160,7 +179,6 @@ const MerchandiseSelector = (props: Props) => {
                 newItem.size = merch.size;
             newList = [...userMerchandise, newItem]
         }
-
         dispatch({
             type: ACTION_TYPES.USER_MERCHANDISE.SET,
             payload: [...newList]
@@ -168,14 +186,6 @@ const MerchandiseSelector = (props: Props) => {
     }
 
 
-    const body = (
-        <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <p id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-        </div>
-    );
     return (
         <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12} justify="center" alignItems="center" spacing={3}>
@@ -192,9 +202,26 @@ const MerchandiseSelector = (props: Props) => {
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                 >
-                    {body}
+                    <Paper style={modalStyle} className={classes.paper}>
+                        <Typography variant="h4" color="textSecondary" component="h4" id="simple-modal-title">Your Merchandise Basket</Typography>
+                        {userMerchandise.length > 0 ? userMerchandise.map((merch: IUserMerchandise) => (
+                            <Card className={classes.basketItem}>
+                                <CardContent>
+                                    <Grid container justify="space-between" alignItems="center">
+                                        <Typography variant="subtitle1" color="textSecondary" component="p" className={classes.itemTitle}>{merch.merchTypeName} </Typography>
+                                        <Typography variant="subtitle2" color="textSecondary" component="p">
+                                            {`${merch.price} LE x ${merch.quantity} = `}
+                                            <strong>{` ${'price' in merch && merch.price * merch.quantity} LE`}</strong>
+                                        </Typography>
+                                        <Button size="small" color="primary" onClick={() => removeFromBasket(merch)}><DeleteForeverIcon color="error" /></Button>
+
+                                    </Grid>
+                                </CardContent>
+                            </Card>)) : <Typography variant="h5" className={classes.noItems}>No Merchandise listed in your Basket yet</Typography>}
+
+                    </Paper>
                 </Modal>
-            </div>
+            </div >
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={3}>
                     {isLoadingMerchandiseList ? <div className="loading-wrapper">
@@ -227,7 +254,7 @@ const MerchandiseSelector = (props: Props) => {
                         ))}
                 </Grid>
             </Grid>
-        </Grid>
+        </Grid >
 
     )
 }
