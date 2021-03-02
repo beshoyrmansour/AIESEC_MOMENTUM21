@@ -54,6 +54,7 @@ export type IUserInfo = {
     gender: string
     phone: string
     email: string
+    facebookLink: string
     function: string
     role: string
     passportImage: string

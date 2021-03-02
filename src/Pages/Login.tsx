@@ -112,13 +112,6 @@ const Login = (props: Props) => {
     }
 
     useEffect(() => {
-        console.log({
-            isCheckingPassCode,
-            readCancelationTrems,
-            readRoundTrems,
-            passCode: passCode.length,
-        });
-
         if (isCheckingPassCode) {
             setCanCheckPassCode(isCheckingPassCode)
         }

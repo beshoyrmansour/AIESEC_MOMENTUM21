@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -23,8 +23,9 @@ import { handleUserRegisteration } from '../redux/actions/userActions';
 import { Container, Fab, Grid, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../redux/store';
-import { IUserInfo, IUserMerchandise } from '../types';
+import { ILocalCommittee, IUserInfo, IUserMerchandise } from '../types';
 import { handleUserMerchandise } from '../redux/actions/merchandiseActions';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -94,21 +95,26 @@ const getStepContent = (stepIndex: number) => {
 export default function Registeration() {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const userInfo = useSelector(
         (state: AppState) => state.user.userInfo,
     ) as IUserInfo;
     const userId = useSelector((state: AppState) => state.user.id);
+    const localCommittee = useSelector((state: AppState) => state.user.localCommittee) as ILocalCommittee;
+    const userMerchandise = useSelector((state: AppState) => state.merchandise.userMerchandise) as IUserMerchandise[];
 
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
-    const handleNext = () => {
-        console.log('HERE', activeStep);
+    useEffect(() => {
+        console.log({ localCommittee });
+        if ('localCommitteeId' in localCommittee && localCommittee.localCommitteeId !== null) { } else { history.push('/') }
+    }, [])
 
-        // if (activeStep === 1)
-        //     dispatch(handleUserMerchandise(userId, userMerchandise));
+    const handleNext = () => {
         if (activeStep >= steps.length - 1)
-            dispatch(handleUserRegisteration(userInfo));
+            dispatch(handleUserRegisteration(userInfo, localCommittee, userMerchandise));
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 

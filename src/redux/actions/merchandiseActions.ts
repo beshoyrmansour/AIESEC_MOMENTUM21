@@ -26,7 +26,7 @@ export const getAllMerchandise = () => (
         })
     })
 }
-export const handleUserMerchandise = (userId: string, userMerchandise: IUserMerchandise) => (
+export const handleUserMerchandise = (userId: string, userMerchandise: IUserMerchandise[]) => (
     dispatch: Dispatch<GeneralAction>,
 ) => {
 

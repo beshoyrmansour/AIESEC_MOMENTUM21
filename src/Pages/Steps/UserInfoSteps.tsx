@@ -115,6 +115,15 @@ const UserInfoSteps = (props: Props) => {
                     value={userInfo.email}
                     onChange={handleInputChange}
                 />
+                <TextField
+                    fullWidth
+                    required
+                    id="userInfo_facebookLink"
+                    label="facebook Profile Link"
+                    name='facebookLink'
+                    value={userInfo.facebookLink}
+                    onChange={handleInputChange}
+                />
 
                 <TextField
                     fullWidth

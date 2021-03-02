@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import { END_POINTS } from '../../API_EndPoints';
-import { GeneralAction, IUserInfo } from '../../types';
+import { GeneralAction, ILocalCommittee, IUserInfo, IUserMerchandise } from '../../types';
 import ACTION_TYPES from '../actionTypes';
 import { BASE_URL } from '../../API_EndPoints';
 
@@ -40,13 +40,51 @@ export const checkPassCode = (passCode: string) => (
         })
     })
 };
-export const handleUserRegisteration = (userInfo: IUserInfo) => (
+export const handleUserRegisteration = (userInfo: IUserInfo, localCommittee: ILocalCommittee, userMerchandise: IUserMerchandise[]) => (
     dispatch: Dispatch<GeneralAction>,
 ) => {
-    console.log("handleUserRegisteration");
+    console.log("handleUserRegisteration", { userInfo, localCommittee, userMerchandise });
 
     dispatch({
         type: ACTION_TYPES.USER.REQUEST,
+    })
+    const newRegUser = {
+        "fullName": userInfo.fullName,
+        "gender": userInfo.gender,
+        "phoneNumber": userInfo.phone,
+        "email": userInfo.email,
+        "lc": localCommittee.localCommitteeId,
+        "function": userInfo.function,
+        "role": userInfo.role,
+        "facebookLink": userInfo.facebookLink,
+        "neededMedia": {
+            "peronalIamge": userInfo.personalImage,
+            "passportImage": userInfo.passportImage,
+            "nationalIdFrontImage": userInfo.nationalIdFrontImage,
+            "nationalIdBackImage": userInfo.nationalIdBackImage
+        },
+        "selectedMerch": [...userMerchandise.map(item => ({
+            "quantity": item.quantity,
+            "type": item.type,
+            "size": item.size ? item.size : 6
+        }))
+
+        ]
+    }
+    return axios.post(END_POINTS.REGISTRATION, { ...newRegUser }).then(res => {
+        dispatch({
+            type: ACTION_TYPES.CHECK_PASS_CODE.SUCCESS,
+            payload: res.data
+        })
+        // return res.data
+
+    }).catch(err => {
+
+        console.log("checkPassCode", { err });
+        dispatch({
+            type: ACTION_TYPES.CHECK_PASS_CODE.FALIURE,
+            payload: err.response
+        })
     })
 
 };

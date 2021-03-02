@@ -13,5 +13,7 @@ export const END_POINTS = {
         MERCHANDISE_LIST: `${BASE_URL}/Merchandise`,
         MERCHANDISE_ITEM: `${BASE_URL}​/Merchandise​/{Id}`,
         MERCHANDISE_MANY: `${BASE_URL}​/many`,
-    }
+    },
+    REGISTRATION: `${BASE_URL}​/Registration`,
+
 }
