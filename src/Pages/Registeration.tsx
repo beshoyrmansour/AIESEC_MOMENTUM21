@@ -167,15 +167,14 @@ export default function Registeration() {
                                 <Fab color="default" onClick={handleBack}>
                                     <ChevronLeftIcon />
                                 </Fab>
-                                <Fab color={activeStep <= steps.length - 2 ? "primary" : "secondary"} onClick={handleNext}>
+                                <Fab color={activeStep <= steps.length - 2 ? "primary" : "secondary"} variant={activeStep <= steps.length - 2 ? "round" : "extended"} onClick={handleNext}>
                                     {activeStep <= steps.length - 2 ?
                                         <ChevronRightIcon /> :
-                                        <CheckIcon />
+                                        <> <CheckIcon /> Finish</>
                                     }
                                 </Fab>
                             </Grid>
                         </Grid>
-
                     )}
             </div>
         </div >
