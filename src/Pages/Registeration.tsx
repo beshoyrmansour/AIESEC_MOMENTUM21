@@ -24,7 +24,6 @@ import { Container, Fab, Grid, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../redux/store';
 import { ILocalCommittee, IUserInfo, IUserMerchandise } from '../types';
-import { handleUserMerchandise } from '../redux/actions/merchandiseActions';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -108,7 +107,6 @@ export default function Registeration() {
     const steps = getSteps();
 
     useEffect(() => {
-        console.log({ localCommittee });
         if ('localCommitteeId' in localCommittee && localCommittee.localCommitteeId !== null) { } else { history.push('/') }
     }, [])
 

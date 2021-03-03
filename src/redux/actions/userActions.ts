@@ -33,7 +33,6 @@ export const checkPassCode = (passCode: string) => (
 
     }).catch(err => {
 
-        console.log("checkPassCode", { err });
         dispatch({
             type: ACTION_TYPES.CHECK_PASS_CODE.FALIURE,
             payload: err.response
@@ -43,8 +42,6 @@ export const checkPassCode = (passCode: string) => (
 export const handleUserRegisteration = (userInfo: IUserInfo, localCommittee: ILocalCommittee, userMerchandise: IUserMerchandise[]) => (
     dispatch: Dispatch<GeneralAction>,
 ) => {
-    console.log("handleUserRegisteration", { userInfo, localCommittee, userMerchandise });
-
     dispatch({
         type: ACTION_TYPES.USER.REQUEST,
     })
@@ -79,8 +76,6 @@ export const handleUserRegisteration = (userInfo: IUserInfo, localCommittee: ILo
         // return res.data
 
     }).catch(err => {
-
-        console.log("checkPassCode", { err });
         dispatch({
             type: ACTION_TYPES.CHECK_PASS_CODE.FALIURE,
             payload: err.response

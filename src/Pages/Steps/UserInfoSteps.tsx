@@ -40,7 +40,6 @@ const UserInfoSteps = (props: Props) => {
 
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
-        console.log({ name, value });
         dispatch({
             type: ACTION_TYPES.USER.USER_INFO.SET,
             payload: {
@@ -50,25 +49,6 @@ const UserInfoSteps = (props: Props) => {
         })
 
     }
-
-    // useEffect(() => {
-    //     for (var key in userInfo) {
-    //         if (userInfo[key] != "")
-    //             dispatch({
-    //                 type: ACTION_TYPES.CONFIGS.CAN_GO_TO_NEXT_STEP,
-    //                 payload: false
-    //             });
-    //     }
-    //     dispatch({
-    //         type: ACTION_TYPES.CONFIGS.CAN_GO_TO_NEXT_STEP,
-    //         payload: true
-    //     });
-
-    //     return () => {
-
-
-    //     }
-    // }, [userInfo])
 
     return (
         <form className={classes.root}>
