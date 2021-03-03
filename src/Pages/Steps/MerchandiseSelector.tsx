@@ -185,6 +185,13 @@ const MerchandiseSelector = (props: Props) => {
         })
     }
 
+    useEffect(() => {
+        dispatch({
+            type: ACTION_TYPES.CONFIGS.TOGGOLE.IS_MERCHANDISE_SELECTOR_VALID,
+            payload: !isLoadingMerchandiseList
+        })
+
+    }, [isLoadingMerchandiseList])
 
     return (
         <Grid container className={classes.root} spacing={2}>

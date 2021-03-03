@@ -30,6 +30,9 @@ const UserInfoSteps = (props: Props) => {
     const isLoadingAIESIC_ROLES = useSelector((state: AppState) => state.configs.isLoadingAIESIC_ROLES);
     const AIESIC_ROLES = useSelector((state: AppState) => state.configs.AIESIC_ROLES) as [];
 
+    const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+
     useEffect(() => {
         dispatch(getFunctions())
         dispatch(getRoles())
@@ -49,6 +52,19 @@ const UserInfoSteps = (props: Props) => {
         })
 
     }
+    useEffect(() => {
+        dispatch({
+            type: ACTION_TYPES.CONFIGS.TOGGOLE.IS_USER_INFO_STEP_VALID,
+            payload: !!(
+                userInfo.fullName !== ''
+                && userInfo.gender !== ''
+                && userInfo.phone !== '' && userInfo.phone.length == 11
+                && userInfo.email !== '' && pattern.test(userInfo.email)
+                && userInfo.function !== ''
+                && userInfo.role !== ''
+                && userInfo.facebookLink !== '')
+        })
+    }, [userInfo])
 
     return (
         <form className={classes.root}>

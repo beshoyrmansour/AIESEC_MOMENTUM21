@@ -100,6 +100,9 @@ export default function Registeration() {
         (state: AppState) => state.user.userInfo,
     ) as IUserInfo;
     const userId = useSelector((state: AppState) => state.user.id);
+    const isUserInfoStepValid = useSelector((state: AppState) => state.configs.isUserInfoStepValid);
+    const isUserIdPhotosValid = useSelector((state: AppState) => state.configs.isUserIdPhotosValid);
+    const isMerchandiseSelectorValid = useSelector((state: AppState) => state.configs.isMerchandiseSelectorValid);
     const localCommittee = useSelector((state: AppState) => state.user.localCommittee) as ILocalCommittee;
     const userMerchandise = useSelector((state: AppState) => state.merchandise.userMerchandise) as IUserMerchandise[];
 
@@ -107,7 +110,7 @@ export default function Registeration() {
     const steps = getSteps();
 
     useEffect(() => {
-        if ('localCommitteeId' in localCommittee && localCommittee.localCommitteeId !== null) { } else { history.push('/') }
+        // if ('localCommitteeId' in localCommittee && localCommittee.localCommitteeId !== null) { } else { history.push('/') }
     }, [])
 
     const handleNext = () => {
@@ -123,6 +126,20 @@ export default function Registeration() {
     const handleReset = () => {
         setActiveStep(0);
     };
+
+    const canGoToNextStep = (stepIndex: number) => {
+        switch (stepIndex) {
+            case 0:
+                return !isUserInfoStepValid;
+            case 1:
+                return !isUserIdPhotosValid;
+            case 2:
+                return !isMerchandiseSelectorValid;
+            default:
+                return false;
+        }
+    }
+
 
     return (
         <div className={classes.root}>
@@ -171,7 +188,11 @@ export default function Registeration() {
                                 <Fab color="default" onClick={handleBack}>
                                     <ChevronLeftIcon />
                                 </Fab>
-                                <Fab color={activeStep <= steps.length - 2 ? "primary" : "secondary"} variant={activeStep <= steps.length - 2 ? "round" : "extended"} onClick={handleNext}>
+                                <Fab
+                                    color={activeStep <= steps.length - 2 ? "primary" : "secondary"}
+                                    variant={activeStep <= steps.length - 2 ? "round" : "extended"}
+                                    onClick={handleNext}
+                                    disabled={canGoToNextStep(activeStep)}>
                                     {activeStep <= steps.length - 2 ?
                                         <ChevronRightIcon /> :
                                         <> <CheckIcon /> Finish</>

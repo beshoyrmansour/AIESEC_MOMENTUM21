@@ -27,6 +27,9 @@ export type ConfigsReducer = {
     AIESIC_Functions: IListItem[] | []
     isLoadingAIESIC_ROLES: boolean
     AIESIC_ROLES: IListItem[] | []
+    isUserInfoStepValid: boolean
+    isUserIdPhotosValid: boolean
+    isMerchandiseSelectorValid: boolean
 }
 export type UserReducer = {
     isCheckingPassCode: boolean

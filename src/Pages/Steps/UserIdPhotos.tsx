@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import ImageUploader from "react-images-upload";
@@ -39,10 +39,7 @@ const UserIdPhotos = (props: Props) => {
 
     const maxFileSize = 5242880;
 
-    const [passportImage, setPassportImage] = useState('');
-    const [nationalIdFrontImage, setNationalIdFrontImage] = useState('');
-    const [nationalIdBackImage, setNationalIdBackImage] = useState('');
-    const [personalImage, setPersonalImage] = useState('');
+
     const [preferredMethod, setPreferredMethod] = useState('');
 
     const toBase64 = (file: any) => new Promise((resolve, reject) => {
@@ -99,8 +96,41 @@ const UserIdPhotos = (props: Props) => {
 
     const handlePreferredMethodChange = (e: any) => {
         const { value } = e.target;
+
+        // dispatch({
+        //     type: ACTION_TYPES.USER.USER_INFO.SET,
+        //     payload: {
+        //         ...userInfo,
+        //         passportImage: '',
+        //         nationalIdFrontImage: '',
+        //         nationalIdBackImage: '',
+        //     }
+        // })
         setPreferredMethod(value);
     }
+
+    useEffect(() => {
+        // console.log({
+        //     personalImage: userInfo.personalImage !== '',
+        //     preferredMethod: preferredMethod,
+        //     passportImage: userInfo.passportImage !== '',
+        //     NationalID: (userInfo.nationalIdBackImage !== '' && userInfo.nationalIdFrontImage !== ''),
+        //     payload: !!(
+        //         userInfo.personalImage !== '' &&
+        //         ((preferredMethod === IDOptions.passport) ? (userInfo.passportImage !== '')
+        //             : (userInfo.nationalIdBackImage !== '' && userInfo.nationalIdFrontImage !== ''))
+        //     )
+        // });
+
+        dispatch({
+            type: ACTION_TYPES.CONFIGS.TOGGOLE.IS_USER_ID_PHOTOS_VALID,
+            payload: !!(
+                userInfo.personalImage !== '' &&
+                ((preferredMethod === IDOptions.passport) ? (userInfo.passportImage !== '')
+                    : (userInfo.nationalIdBackImage !== '' && userInfo.nationalIdFrontImage !== ''))
+            )
+        })
+    }, [userInfo, preferredMethod])
 
     return (
         <div>

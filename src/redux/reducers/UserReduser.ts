@@ -13,10 +13,12 @@ const initialState: UserReducer = {
         email: '',
         function: '',
         role: '',
+        facebookLink: '',
         passportImage: '',
         nationalIdFrontImage: '',
         nationalIdBackImage: '',
         personalImage: '',
+
     },
     checkingPassCodeErrorMSG: ''
 

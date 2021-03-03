@@ -6,7 +6,10 @@ const initialState: ConfigsReducer = {
     isLoadingAIESIC_Functions: false,
     AIESIC_Functions: [],
     isLoadingAIESIC_ROLES: false,
-    AIESIC_ROLES: []
+    AIESIC_ROLES: [],
+    isUserInfoStepValid: false,
+    isUserIdPhotosValid: false,
+    isMerchandiseSelectorValid: false,
 };
 
 
@@ -61,7 +64,24 @@ export default (state = initialState, action: GeneralAction) => {
                 AIESIC_ROLES: [],
             };
             break;
-
+        case ACTION_TYPES.CONFIGS.TOGGOLE.IS_USER_INFO_STEP_VALID:
+            newState = {
+                ...state,
+                isUserInfoStepValid: action.payload
+            };
+            break;
+        case ACTION_TYPES.CONFIGS.TOGGOLE.IS_USER_ID_PHOTOS_VALID:
+            newState = {
+                ...state,
+                isUserIdPhotosValid: action.payload
+            };
+            break;
+            case ACTION_TYPES.CONFIGS.TOGGOLE.IS_MERCHANDISE_SELECTOR_VALID:
+                newState = {
+                    ...state,
+                    isMerchandiseSelectorValid: action.payload
+                };
+                break;
 
         default:
             break;
